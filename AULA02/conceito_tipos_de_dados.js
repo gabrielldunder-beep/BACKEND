@@ -31,3 +31,14 @@ console.log(typeof nomeDois); // Saída: string
 
 let soma = 10 + 5;
 console.log(typeof soma); // Saída: number
+
+// Boolean (Verdadeiro ou Falso)
+// Um booleano é um tipo de dado que pode ter apenas dois valores possíveis: true (verdadeiro) ou false (falso). Ele é frequentemente usado em expressões condicionais e controle de fluxo.
+let maiorDeIdade = true;
+let menorDeIdade = false;
+console.log(maiorDeIdade); // Saída: true
+console.log(menorDeIdade); // Saída: false
+
+let idade = 20;
+let podeDirigir = idade >= 18;
+console.log(podeDirigir); // Saída: true

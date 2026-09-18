@@ -45,4 +45,7 @@ const pi = 3.14; // não pode mudar o valor ❌ ERROR
 // SNAKE CASE é a convenção de nomenclatura para constantes em JavaScript
 // - Palvras separadas por um underscore _
 
-// let nome_completo = "Nikolas Silva"; // não é uma boa prática usar snake case para variáveis, mas é permitido
+// let nome_completo = "gabriell BREGIÃO"   ; // não é uma boa prática usar snake case para variáveis, mas é permitido
+
+//TEMPLATE STRING
+console.log(`sua idade é: ${idade} anos`); // template string 
