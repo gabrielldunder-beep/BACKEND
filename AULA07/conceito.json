@@ -1,0 +1,15 @@
+{
+    "CACHORRO": {
+        "nome": "Rex",
+        "idade": 5,
+        "raca": "Labrador",
+        "VACINADO": true,
+        "PESO": 25.5,
+        "brinquedos": ["bola", "corda", "osso"],
+        "dono": {
+            "nome": "João",
+            "idade": 30,
+            "telefone": "123456789"
+        }
+    }
+}
