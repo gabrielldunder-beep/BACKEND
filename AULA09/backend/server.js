@@ -10,7 +10,7 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-const cachorros = require("./backend/data/dogs.json");
+const cachorros = require("./data/dogs.json");
 
 const app = express();
 const PORT = 3000;
