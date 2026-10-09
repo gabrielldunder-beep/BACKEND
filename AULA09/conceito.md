@@ -9,3 +9,16 @@ npm init -y
 # bibliotecas utilizadas
 express - é uma framework muito utilizada par acriação de servidor e APIs
 CORS - mecanismo de segurança que permite informar quais origens podem acessar o recurso de requisições. 
+
+# arrow function =>
+// função tradicional
+function somar(a, b){
+    return a + b;
+
+}
+
+
+// arrow function
+const somar = (a, b) => {
+    return a + b;
+}

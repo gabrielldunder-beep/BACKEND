@@ -1,63 +1,72 @@
 // NOSSA API DE CACHORROS
 //
-// AGORA AS FOTOS NÃO SÃO MAIS BAIXADAS AUTOMATICAMNETE
-// Elas devem existr manualmente na pasta 
-// data/fotos
+// As fotos devem existir manualmente na pasta data/fotos
 //========================
 
-// rotas
-// GET /api/cachorros/aleatórios
-// GET/api/cachorros/:raça
+// ROTAS
+// GET /api/cachorros/aleatorio
+// GET /api/cachorros/:raca
 
-// importar o framework express
-const express = require('express');
-// importa o cors para permitir requisições de outros dominios
-const cors = require('cors');
-// importa o módulo de arquivivos do node
-const fs = require('fs');
-// importa utilidades para trabalhar com caminhos de arquivos
-const path = require("path")
-// importa o arquivo JSON que contém as raças e fotos
-const cachorrros = require("./data/dogs.json");
-// cria a aplicação express
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
+const cachorros = require("./data/dogs.json");
+
 const app = express();
-// definir a porta onde o servidor  irá rodar
-const PORT = 3000
-// HABILITAR O USO DO CORS NA APLICAÇÃO
-app.use(corse());
+const PORT = 3000;
 
- //=============================
- // SERVIDOR ARQUIVOS ESTÁTICOS
- //=============================
+// habilita o CORS
+app.use(cors());
 
- // Mós falamos para o express 
- // Tudo o que estiver n apasta data/fotos pode ser acessado pla url
- // exemplo
- // http://localhost:3000/fotos/husky/1.jpg
+//=============================
+// SERVIDOR DE ARQUIVOS ESTÁTICOS
+//=============================
+// Exemplo: http://localhost:3000/fotos/husky/1.jpg
+app.use("/fotos", express.static(path.join(__dirname, "data/fotos")));
 
- app.use(
-    "/fotos",
-    express.static(
-        path.join(__dirname,  "data/fotos")
-    )
-
- )
-
-  //=============================
- // SERVIDOR ARQUIVOS ESTÁTICOS
- //=============================
-
-
-// função que recebe um array e retorna um item aleatório dele
- function sortear(array) {
-    // gera um numero aleatório entre 0 e o tamanho do array
-    // array.length - cont aquantos intens existem na lista
-    // math.random() - Sorteia um número decimal entre 0 e 1
-    // math.random() - array.length - Multiplica o número sorteado pela quantidade de itens
-    // math.floor() - tira a parte decimal, arredondando para baixo
-    const i = Math.floor(Math.random() * array.length)
-    // const i - guarda a posição na variavel i
-    // retorna  o item soteado
-    return array [1];
-
+// recebe um array e retorna um item aleatório
+function sortear(array) {
+  const i = Math.floor(Math.random() * array.length);
+  return array[i];
 }
+
+//=================================
+// ROTAS DA API
+//=================================
+
+// ROTA 1 - Cachorro aleatório
+app.get("/api/cachorros/aleatorio", (req, res) => {
+  const todasAsFotos = Object.values(cachorros).flat();
+  const item = sortear(todasAsFotos);
+
+  res.json({
+    status: "success",
+    message: `http://localhost:${PORT}/fotos/${item}`,
+  });
+});
+
+// ROTA 2 - Cachorro por raça
+// Exemplo: http://localhost:3000/api/cachorros/husky
+app.get("/api/cachorros/:raca", (req, res) => {
+  const raca = req.params.raca.toLowerCase();
+
+  if (!cachorros[raca]) {
+    return res.status(404).json({
+      status: "error",
+      message: `Raça "${raca}" não encontrada`,
+    });
+  }
+
+  const item = sortear(cachorros[raca]);
+
+  res.json({
+    status: "success",
+    message: `http://localhost:${PORT}/fotos/${item}`,
+  });
+});
+
+// inicia o servidor
+app.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
+  console.log("Coloque as fotos manualmente em data/fotos");
+});
